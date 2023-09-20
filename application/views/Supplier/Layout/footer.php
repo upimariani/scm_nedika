@@ -1,6 +1,6 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-  	<strong>CV. MAESTRO</strong>
+  	<strong>CV. SURYA NEDIKA ISABELLA</strong>
 
 
   </footer>
