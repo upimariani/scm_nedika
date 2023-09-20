@@ -49,6 +49,15 @@ class cTransaksi extends CI_Controller
 		$this->session->set_flashdata('success', 'Transaksi Berhasil Dikirim!!');
 		redirect('Supplier/cTransaksi/detail_transaksi/' . $id);
 	}
+	public function tolak_pesanan($id)
+	{
+		$data = array(
+			'status_order' => '9'
+		);
+		$this->mTransaksiSupplier->update_status($id, $data);
+		$this->session->set_flashdata('success', 'Transaksi Ditolak!!');
+		redirect('Supplier/cTransaksi');
+	}
 }
 
 /* End of file cTransaksi.php */

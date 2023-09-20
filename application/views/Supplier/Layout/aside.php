@@ -40,12 +40,21 @@
 						<p>Data Bahan Baku</p>
 					</a>
 				</li>
+				<?php
+				$notif_transaksi = $this->db->query("SELECT COUNT(id_po_bb) as jml FROM `po_bb` WHERE status_order != '4'")->row();
+
+				?>
 				<li class="nav-item">
 					<a href="<?= base_url('Supplier/cTransaksi') ?>" class="nav-link <?php if ($this->uri->segment(1) == 'Supplier' && $this->uri->segment(2) == 'cTransaksi') {
 																							echo 'active';
 																						}  ?>">
 						<i class="nav-icon fas fa-shopping-cart"></i>
-						<p>Pemesanan Bahan Baku</p>
+						<p>Pemesanan <?php if ($notif_transaksi->jml != '0') {
+										?>
+								<span class="badge badge-warning"><?= $notif_transaksi->jml ?></span>
+							<?php
+										} ?>
+						</p>
 					</a>
 				</li>
 

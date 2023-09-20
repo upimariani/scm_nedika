@@ -83,8 +83,17 @@ class cTransaksi extends CI_Controller
 		);
 		$this->mTransaksi->insert_po_bb($data);
 
-		$id_po_bb = $this->db->query("SELECT MAX(id_po_bb) as id_po_bb FROM `po_bb`")->row();
+		//mengurangi stok
+		foreach ($this->cart->contents() as $key => $value) {
+			$stok_update = $value['stok'] - $value['qty'];
+			$stok = array(
+				'stok_supplier' => $stok_update
+			);
+			$this->db->where('id_bb', $value['id']);
+			$this->db->update('bahan_baku', $stok);
+		}
 
+		$id_po_bb = $this->db->query("SELECT MAX(id_po_bb) as id_po_bb FROM `po_bb`")->row();
 		foreach ($this->cart->contents() as $key => $value) {
 			$pesanan = array(
 				'id_po_bb' => $id_po_bb->id_po_bb,
