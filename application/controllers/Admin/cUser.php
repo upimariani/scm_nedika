@@ -23,8 +23,9 @@ class cUser extends CI_Controller
 	}
 	public function createUser()
 	{
-		$this->form_validation->set_rules('nama', 'Nama User', 'required');
-		$this->form_validation->set_rules('no_hp', 'No Telepon', 'required');
+
+		$this->form_validation->set_rules('nama', 'Nama User', 'required|is_unique[user.nama_user]');
+		$this->form_validation->set_rules('no_hp', 'No Telepon', 'required|min_length[12]|max_length[12]');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'required');
 		$this->form_validation->set_rules('username', 'Username', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');

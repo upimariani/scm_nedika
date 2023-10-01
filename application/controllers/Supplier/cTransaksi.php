@@ -58,6 +58,16 @@ class cTransaksi extends CI_Controller
 		$this->session->set_flashdata('success', 'Transaksi Ditolak!!');
 		redirect('Supplier/cTransaksi');
 	}
+	public function hapus_transaksi($id)
+	{
+		$this->db->where('id_po_bb', $id);
+		$this->db->delete('po_bb');
+
+		$this->db->where('id_po_bb', $id);
+		$this->db->delete('po_dbb');
+		$this->session->set_flashdata('success', 'Data Transaksi Berhasil Dihapus!');
+		redirect('Supplier/cTransaksi');
+	}
 }
 
 /* End of file cTransaksi.php */

@@ -58,7 +58,64 @@
 				</div>
 				<!-- ./col -->
 
+				<div class="col-12">
+					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title">Informasi Bahan Baku</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							<table id="example1" class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>Nama Bahan Baku</th>
+										<th>Stok</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+									$no = 1;
+									foreach ($stok_bb as $key => $value) {
+									?>
+										<tr>
+											<td><?= $no++ ?>.</td>
+											<td><?= $value->nama_bb ?></td>
+											<td><?= $value->qty ?></td>
+											<td><?php if ($value->qty <= 100) {
+												?>
+													<span class="badge badge-warning">Bahan Baku Akan Segera Habis!</span>
+												<?php
+												} else if ($value->qty == '0') {
+												?>
+													<span class="badge badge-danger">Stok Bahan Baku Habis!</span>
+												<?php
+												} else {
+												?>
+													<span class="badge badge-success">Stok Bahan Baku Aman!</span>
+												<?php
+												} ?>
+											</td>
 
+										</tr>
+									<?php
+									}
+									?>
+								</tbody>
+								<tfoot>
+									<tr>
+										<th>No</th>
+										<th>Nama Bahan Baku</th>
+										<th>Stok</th>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card -->
+				</div>
 			</div>
 			<!-- /.row -->
 			<!-- Main row -->

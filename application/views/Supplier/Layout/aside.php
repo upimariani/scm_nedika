@@ -41,7 +41,8 @@
 					</a>
 				</li>
 				<?php
-				$notif_transaksi = $this->db->query("SELECT COUNT(id_po_bb) as jml FROM `po_bb` WHERE status_order != '4'")->row();
+				$id_supplier = $this->session->userdata('id');
+				$notif_transaksi = $this->db->query("SELECT COUNT(id_po_bb) as jml FROM `po_bb` WHERE status_order != '4' AND id_supplier ='" . $id_supplier . "'")->row();
 
 				?>
 				<li class="nav-item">

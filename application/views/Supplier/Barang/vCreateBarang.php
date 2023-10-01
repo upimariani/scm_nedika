@@ -60,11 +60,17 @@
 								<div class="col-lg-12">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Stok</label>
-										<input type="text" name="stok" class="form-control" id="exampleInputEmail1" placeholder="Masukkan Stok Bahan Baku">
+										<input type="number" name="stok" class="form-control" id="exampleInputEmail1" placeholder="Masukkan Stok Bahan Baku">
 										<?= form_error('stok', '<small class="text-danger">', '</small>') ?>
 									</div>
 								</div>
-
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Keterangan Satuan</label>
+										<input type="text" name="satuan" class="form-control" id="exampleInputEmail1" placeholder="Masukkan Satuan Bahan Baku">
+										<?= form_error('satuan', '<small class="text-danger">', '</small>') ?>
+									</div>
+								</div>
 							</div>
 						</div>
 						<!-- /.card-body -->

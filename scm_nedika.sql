@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 12, 2023 at 03:49 PM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Waktu pembuatan: 01 Okt 2023 pada 14.16
+-- Versi server: 10.4.6-MariaDB
+-- Versi PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bahan_baku`
+-- Struktur dari tabel `bahan_baku`
 --
 
 CREATE TABLE `bahan_baku` (
@@ -34,22 +34,25 @@ CREATE TABLE `bahan_baku` (
   `nama_bb` varchar(125) NOT NULL,
   `deskripsi` text NOT NULL,
   `harga_bb` varchar(15) NOT NULL,
-  `stok_supplier` int(11) NOT NULL
+  `stok_supplier` int(11) NOT NULL,
+  `satuan` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `bahan_baku`
+-- Dumping data untuk tabel `bahan_baku`
 --
 
-INSERT INTO `bahan_baku` (`id_bb`, `id_supplier`, `nama_bb`, `deskripsi`, `harga_bb`, `stok_supplier`) VALUES
-(1, 1, 'Kardus', 'deskripsi kardus', '50000', 2000),
-(2, 1, 'Sedotan', 'deskripsi sedotan', '10000', 2000),
-(3, 1, 'Solatip', 'deskripsi solatip', '5000', 2000);
+INSERT INTO `bahan_baku` (`id_bb`, `id_supplier`, `nama_bb`, `deskripsi`, `harga_bb`, `stok_supplier`, `satuan`) VALUES
+(1, 2, 'Kardus', 'deskripsi kardus', '50000', 1998, 'pack'),
+(2, 4, 'Sedotan', 'deskripsi sedotan', '10000', 2000, 'pack'),
+(3, 3, 'Solatip', 'deskripsi solatip', '5000', 2000, 'pcs'),
+(4, 1, 'Air', 'Deskripsi Air...', '12000', 100, 'liter'),
+(5, 5, 'Cup', 'Deskripsi Cup', '8000', 25, 'pcs');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bb_keluar`
+-- Struktur dari tabel `bb_keluar`
 --
 
 CREATE TABLE `bb_keluar` (
@@ -60,7 +63,7 @@ CREATE TABLE `bb_keluar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `bb_keluar`
+-- Dumping data untuk tabel `bb_keluar`
 --
 
 INSERT INTO `bb_keluar` (`id_bb_keluar`, `id_po_dbb`, `tgl_keluar`, `qty_keluar`) VALUES
@@ -70,7 +73,7 @@ INSERT INTO `bb_keluar` (`id_bb_keluar`, `id_po_dbb`, `tgl_keluar`, `qty_keluar`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `po_bb`
+-- Struktur dari tabel `po_bb`
 --
 
 CREATE TABLE `po_bb` (
@@ -86,11 +89,11 @@ CREATE TABLE `po_bb` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `po_bb`
+-- Dumping data untuk tabel `po_bb`
 --
 
 INSERT INTO `po_bb` (`id_po_bb`, `id_user`, `id_supplier`, `tgl_transaksi`, `total_bayar`, `stat_bayar`, `bukti_bayar`, `status_order`, `alamat_pengiriman`) VALUES
-(1, 1, 1, '2023-01-01', '44150000', 1, 'Ini-Dia-Bukti-Transfer-Mandiri-Dari-ATM-mBanking-dan-Internet-Banking-Mandiri-1.jpg', 4, 'Kuningan'),
+(1, 1, 1, '2023-01-01', '44150000', 1, 'Ini-Dia-Bukti-Transfer-Mandiri-Dari-ATM-mBanking-dan-Internet-Banking-Mandiri-1.jpg', 1, 'Kuningan'),
 (2, 1, 1, '2023-01-02', '10690000', 1, 'Ini-Dia-Bukti-Transfer-Mandiri-Dari-ATM-mBanking-dan-Internet-Banking-Mandiri-1.jpg', 4, 'Kuningan'),
 (3, 1, 1, '2023-01-03', '8400000', 1, 'Ini-Dia-Bukti-Transfer-Mandiri-Dari-ATM-mBanking-dan-Internet-Banking-Mandiri-1.jpg', 4, 'Kuningan'),
 (4, 1, 1, '2023-02-04', '655000', 1, 'Ini-Dia-Bukti-Transfer-Mandiri-Dari-ATM-mBanking-dan-Internet-Banking-Mandiri-1.jpg', 4, 'Kuningan'),
@@ -162,7 +165,7 @@ INSERT INTO `po_bb` (`id_po_bb`, `id_user`, `id_supplier`, `tgl_transaksi`, `tot
 -- --------------------------------------------------------
 
 --
--- Table structure for table `po_dbb`
+-- Struktur dari tabel `po_dbb`
 --
 
 CREATE TABLE `po_dbb` (
@@ -173,7 +176,7 @@ CREATE TABLE `po_dbb` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `po_dbb`
+-- Dumping data untuk tabel `po_dbb`
 --
 
 INSERT INTO `po_dbb` (`id_po_dbb`, `id_po_bb`, `id_bb`, `qty`) VALUES
@@ -249,7 +252,7 @@ INSERT INTO `po_dbb` (`id_po_dbb`, `id_po_bb`, `id_bb`, `qty`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `supplier`
+-- Struktur dari tabel `supplier`
 --
 
 CREATE TABLE `supplier` (
@@ -262,16 +265,20 @@ CREATE TABLE `supplier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `supplier`
+-- Dumping data untuk tabel `supplier`
 --
 
 INSERT INTO `supplier` (`id_supplier`, `nama_supplier`, `alamat`, `no_hp`, `username`, `password`) VALUES
-(1, 'Supplier 1', 'Kuningan, Jawa Barat', '089876676765', 'supplier1', 'supplier1');
+(1, 'Supplier 1', 'Kuningan, Jawa Barat', '089876676765', 'supplier1', 'supplier1'),
+(2, 'Supplier 2', 'Kuningan, Jawa Barat', '089987656651', 'Supplier2', 'Supplier2'),
+(3, 'Supplier 3', 'Kuningan, Jawa Barat', '087887123211', 'supplier3', 'supplier3'),
+(4, 'Supplier 4', 'Kuningan, Jawa Barat', '089987123221', 'supplier4', 'supplier4'),
+(5, 'Supplier 5', 'Kuningan, Jawa Barat', '089976512321', 'supplier5', 'supplier5');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
@@ -285,7 +292,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`id_user`, `nama_user`, `alamat_user`, `no_hp_user`, `username_user`, `password_user`, `level_user`) VALUES
@@ -298,77 +305,77 @@ INSERT INTO `user` (`id_user`, `nama_user`, `alamat_user`, `no_hp_user`, `userna
 --
 
 --
--- Indexes for table `bahan_baku`
+-- Indeks untuk tabel `bahan_baku`
 --
 ALTER TABLE `bahan_baku`
   ADD PRIMARY KEY (`id_bb`);
 
 --
--- Indexes for table `bb_keluar`
+-- Indeks untuk tabel `bb_keluar`
 --
 ALTER TABLE `bb_keluar`
   ADD PRIMARY KEY (`id_bb_keluar`);
 
 --
--- Indexes for table `po_bb`
+-- Indeks untuk tabel `po_bb`
 --
 ALTER TABLE `po_bb`
   ADD PRIMARY KEY (`id_po_bb`);
 
 --
--- Indexes for table `po_dbb`
+-- Indeks untuk tabel `po_dbb`
 --
 ALTER TABLE `po_dbb`
   ADD PRIMARY KEY (`id_po_dbb`);
 
 --
--- Indexes for table `supplier`
+-- Indeks untuk tabel `supplier`
 --
 ALTER TABLE `supplier`
   ADD PRIMARY KEY (`id_supplier`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `bahan_baku`
+-- AUTO_INCREMENT untuk tabel `bahan_baku`
 --
 ALTER TABLE `bahan_baku`
-  MODIFY `id_bb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_bb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `bb_keluar`
+-- AUTO_INCREMENT untuk tabel `bb_keluar`
 --
 ALTER TABLE `bb_keluar`
   MODIFY `id_bb_keluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `po_bb`
+-- AUTO_INCREMENT untuk tabel `po_bb`
 --
 ALTER TABLE `po_bb`
-  MODIFY `id_po_bb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id_po_bb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
--- AUTO_INCREMENT for table `po_dbb`
+-- AUTO_INCREMENT untuk tabel `po_dbb`
 --
 ALTER TABLE `po_dbb`
-  MODIFY `id_po_dbb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id_po_dbb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
--- AUTO_INCREMENT for table `supplier`
+-- AUTO_INCREMENT untuk tabel `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;

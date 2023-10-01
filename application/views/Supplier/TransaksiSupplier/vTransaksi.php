@@ -50,7 +50,8 @@
 									<a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Pesanan Belum Bayar</a>
 								</li>
 								<?php
-								$notif_transaksi = $this->db->query("SELECT COUNT(id_po_bb) as jml FROM `po_bb` WHERE status_order = '1'")->row();
+								$id_supplier = $this->session->userdata('id');
+								$notif_transaksi = $this->db->query("SELECT COUNT(id_po_bb) as jml FROM `po_bb` WHERE status_order = '1' AND id_supplier ='" . $id_supplier . "'")->row();
 								?>
 								<li class="nav-item">
 									<a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Pesanan <?php if ($notif_transaksi->jml != '0') {
@@ -117,15 +118,30 @@
 															}
 															?>
 														</td>
+														<?php
+														if ($value->status_order == '9') {
+														?>
+															<td class="text-center">
 
-														<td class="text-center">
-															<a href="<?= base_url('Supplier/cTransaksi/detail_transaksi/' . $value->id_po_bb) ?>" class="btn btn-app">
-																<i class="fas fa-info"></i> Detail Transaksi
-															</a>
-															<a href="<?= base_url('Supplier/cTransaksi/tolak_pesanan/' . $value->id_po_bb) ?>" class="btn btn-app btn-danger">
-																<i class="fas fa-exclamation"></i> Tolak Pesanan
-															</a>
-														</td>
+																<a href="<?= base_url('Supplier/cTransaksi/hapus_transaksi/' . $value->id_po_bb) ?>" class="btn btn-app btn-danger">
+																	<i class="fas fa-exclamation"></i> Hapus History
+																</a>
+															</td>
+														<?php
+														} else {
+														?>
+															<td class="text-center">
+																<a href="<?= base_url('Supplier/cTransaksi/detail_transaksi/' . $value->id_po_bb) ?>" class="btn btn-app">
+																	<i class="fas fa-info"></i> Detail Transaksi
+																</a>
+																<a href="<?= base_url('Supplier/cTransaksi/tolak_pesanan/' . $value->id_po_bb) ?>" class="btn btn-app btn-danger">
+																	<i class="fas fa-exclamation"></i> Tolak Pesanan
+																</a>
+															</td>
+														<?php
+														}
+														?>
+
 													</tr>
 											<?php
 												}
@@ -146,7 +162,7 @@
 									</table>
 								</div>
 								<div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
-									<table id="example1" class="table table-bordered table-striped">
+									<table id="example2" class="table table-bordered table-striped">
 										<thead>
 											<tr>
 												<th>No</th>
